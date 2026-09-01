@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b0b0c;
+  --foreground: #eeeae1;
+  --muted: #85858b;
+  --subtle: #62636a;
+  --line: #25262a;
+  --accent: #b9ad99;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #eeeae1;
+  color: #0b0b0c;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+.display {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+}
+
+.display-tight {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+}
+
+.label {
+  color: var(--subtle);
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
+.body-copy {
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.article-text {
+  color: #d0cdc5;
+  font-size: 20px;
+  line-height: 1.9;
+}
+
+.article-text p {
+  margin: 0 0 2rem;
+}
+
+.poem-text {
+  color: #d0cdc5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  line-height: 2;
+  letter-spacing: -0.01em;
+}
+
+.site-link {
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.site-link:hover {
+  color: var(--foreground);
+}
+
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: gap 180ms ease, color 180ms ease;
+}
+
+.arrow-link:hover {
+  gap: 0.9rem;
+  color: var(--foreground);
+}
+
+.archive-card {
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
+}
+
+.archive-card:hover {
+  background: #101012;
+  border-color: #3a3b40;
+}
+
+.archive-card:hover .card-arrow {
+  transform: translateX(5px);
+}
+
+.card-arrow {
+  transition: transform 220ms ease;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--line);
+  background: rgba(11, 11, 12, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.mobile-menu {
+  animation: menuIn 220ms ease forwards;
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .article-text {
+    font-size: 18px;
+    line-height: 1.85;
+  }
+
+  .poem-text {
+    font-size: 20px;
+    line-height: 1.9;
+  }
+}
