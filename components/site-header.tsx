@@ -10,7 +10,10 @@ export default function SiteHeader() {
     { label: "Writings", number: "01", href: "/#writings" },
     { label: "Poems", number: "02", href: "/#poems" },
     { label: "Life", number: "03", href: "/#life" },
-    { label: "About", number: "04", href: "/#about" },
+    { label: "Days", number: "04", href: "/days" },
+    { label: "Photographs", number: "05", href: "/photographs" },
+    { label: "Now", number: "06", href: "/now" },
+    { label: "About", number: "07", href: "/#about" },
   ];
 
   return (
@@ -21,13 +24,13 @@ export default function SiteHeader() {
         <Link
           href="/"
           onClick={() => setOpen(false)}
-          className="text-[12px] font-semibold uppercase tracking-[0.32em] text-[#eeeae1]"
+          className="text-[12px] font-semibold uppercase tracking-[0.32em] text-ink"
         >
           Manushresth
         </Link>
 
         {/* DESKTOP NAV */}
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -45,7 +48,7 @@ export default function SiteHeader() {
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close navigation" : "Open navigation"}
           aria-expanded={open}
-          className="group flex h-10 w-10 items-center justify-center md:hidden"
+          className="group flex h-10 w-10 items-center justify-center lg:hidden"
         >
           <span className="relative block h-[14px] w-[22px]">
             <span
@@ -69,7 +72,7 @@ export default function SiteHeader() {
 
       {/* MOBILE NAV */}
       {open && (
-        <div className="mobile-menu border-t border-[#25262a] bg-[#0b0b0c] md:hidden">
+        <div className="mobile-menu border-t border-line bg-page lg:hidden">
           <nav className="px-6 pb-8 pt-2 sm:px-8">
 
             {links.map((link) => (
@@ -77,7 +80,7 @@ export default function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="group flex items-center justify-between border-b border-[#25262a] py-6"
+                className="group flex items-center justify-between border-b border-line py-6"
               >
                 <div className="flex items-center gap-5">
 
@@ -85,7 +88,7 @@ export default function SiteHeader() {
                     {link.number}
                   </span>
 
-                  <span className="display text-2xl text-[#d9d5cd] transition-colors duration-200 group-hover:text-[#eeeae1]">
+                  <span className="display text-2xl text-[#d9d5cd] transition-colors duration-200 group-hover:text-ink">
                     {link.label}
                   </span>
 

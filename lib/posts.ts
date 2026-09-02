@@ -1,5 +1,7 @@
 import fs from "fs";
 import path from "path";
+import matter from "gray-matter";
+import type { Metadata } from "next";
 
 export type PostType = "writings" | "poems" | "life";
 
@@ -14,60 +16,22 @@ export type Post = {
 
 const contentDirectory = path.join(process.cwd(), "content");
 
-function parseFile(
-  filePath: string,
-  type: PostType
-): Post {
+function asString(value: unknown, fallback = ""): string {
+  return typeof value === "string" ? value : fallback;
+}
+
+function parseFile(filePath: string, type: PostType): Post {
   const raw = fs.readFileSync(filePath, "utf8");
-
-  // Remove Windows BOM if present
   const text = raw.replace(/^\uFEFF/, "");
-
-  // Find frontmatter
-  const frontmatterMatch = text.match(
-    /^---\s*\r?\n([\s\S]*?)\r?\n---\s*\r?\n?([\s\S]*)$/
-  );
-
-  let frontmatter = "";
-  let content = "";
-
-  if (frontmatterMatch) {
-    frontmatter = frontmatterMatch[1];
-    content = frontmatterMatch[2].trim();
-  } else {
-    content = text.trim();
-  }
-
-  const data: Record<string, string> = {};
-
-  frontmatter.split(/\r?\n/).forEach((line) => {
-    const match = line.match(/^([^:]+):\s*["']?(.*?)["']?\s*$/);
-
-    if (match) {
-      const key = match[1].trim();
-      const value = match[2].trim();
-
-      data[key] = value;
-    }
-  });
-
+  const { data, content } = matter(text);
   const slug = path.basename(filePath, ".mdx");
 
   return {
     slug,
-
-    title:
-      data.title ||
-      formatSlug(slug),
-
-    date:
-      data.date || "",
-
-    description:
-      data.description || "",
-
-    content,
-
+    title: asString(data.title, formatSlug(slug)),
+    date: asString(data.date),
+    description: asString(data.description),
+    content: content.trim(),
     type,
   };
 }
@@ -75,21 +39,12 @@ function parseFile(
 function formatSlug(slug: string): string {
   return slug
     .split("-")
-    .map(
-      (word) =>
-        word.charAt(0).toUpperCase() +
-        word.slice(1)
-    )
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
 
-export function getPosts(
-  type: PostType
-): Post[] {
-  const directory = path.join(
-    contentDirectory,
-    type
-  );
+export function getPosts(type: PostType): Post[] {
+  const directory = path.join(contentDirectory, type);
 
   if (!fs.existsSync(directory)) {
     return [];
@@ -100,10 +55,7 @@ export function getPosts(
     .filter((file) => file.endsWith(".mdx"));
 
   const posts = files.map((file) =>
-    parseFile(
-      path.join(directory, file),
-      type
-    )
+    parseFile(path.join(directory, file), type)
   );
 
   return posts.sort((a, b) => {
@@ -117,19 +69,19 @@ export function getPosts(
   });
 }
 
-export function getPost(
-  type: PostType,
-  slug: string
-): Post | null {
-  const filePath = path.join(
-    contentDirectory,
-    type,
-    `${slug}.mdx`
-  );
+export function getPost(type: PostType, slug: string): Post | null {
+  const filePath = path.join(contentDirectory, type, `${slug}.mdx`);
 
   if (!fs.existsSync(filePath)) {
     return null;
   }
 
   return parseFile(filePath, type);
+}
+
+export function postMetadata(post: Post): Metadata {
+  return {
+    title: post.title,
+    description: post.description || undefined,
+  };
 }

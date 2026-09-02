@@ -9,6 +9,12 @@
   --accent: #b9ad99;
 }
 
+@theme inline {
+  --color-page: var(--background);
+  --color-ink: var(--foreground);
+  --color-line: var(--line);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -74,6 +80,97 @@ button {
 
 .article-text p {
   margin: 0 0 2rem;
+}
+
+.article-text a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.article-text h2 {
+  color: var(--foreground);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.1em;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  margin: 2.5rem 0 1rem;
+}
+
+.article-text h2:first-child {
+  margin-top: 0;
+}
+
+.photograph-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 2.75rem 0 3.25rem;
+}
+
+.photograph-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.photograph-image {
+  width: 100%;
+}
+
+.photograph-preview,
+.photograph-detail {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  aspect-ratio: auto;
+  object-fit: unset;
+}
+
+.photograph-detail {
+  max-width: 45rem;
+}
+
+.photograph-feature-copy {
+  width: 100%;
+}
+
+.photograph-copy {
+  max-width: 42.5rem;
+}
+
+@media (min-width: 768px) {
+  .photograph-list {
+    gap: 6.5rem;
+    padding: 3.5rem 0 4rem;
+  }
+
+  .photograph-entry--featured .photograph-feature {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2.75rem;
+  }
+
+  .photograph-entry--featured .photograph-image {
+    flex: 0 0 auto;
+    width: min(100%, 34.5rem);
+    max-width: 34.5rem;
+  }
+
+  .photograph-entry--featured .photograph-feature-copy {
+    max-width: 22rem;
+    padding-top: 0.35rem;
+  }
+
+  .photograph-entry--secondary {
+    align-self: flex-end;
+    width: min(100%, 20rem);
+    max-width: 20rem;
+    margin-right: clamp(0px, 8vw, 6rem);
+  }
 }
 
 .poem-text {

@@ -1,16 +1,20 @@
 import Link from "next/link";
-import SiteHeader from "@/components/site-header";
+import PhotographArchive from "@/components/photograph-archive";
+import { dayPreview, getDays } from "@/lib/days";
+import { getCurrentNow, nowPreview } from "@/lib/now";
+import { getPhotographs } from "@/lib/photographs";
 import { getPosts } from "@/lib/posts";
 
 export default function Home() {
   const writings = getPosts("writings");
   const poems = getPosts("poems");
   const life = getPosts("life");
+  const days = getDays().slice(0, 3);
+  const photographs = getPhotographs().slice(0, 3);
+  const currentNow = getCurrentNow();
 
   return (
-    <main className="min-h-screen bg-[#0b0b0c] text-[#eeeae1]">
-      <SiteHeader />
-
+    <main>
       {/* HERO */}
       <section className="mx-auto flex min-h-[calc(100svh-70px)] max-w-7xl flex-col justify-center px-6 py-24 sm:px-8 lg:px-10">
         <div className="max-w-[1200px]">
@@ -18,10 +22,10 @@ export default function Home() {
             A little place on the internet
           </p>
 
-          <h1 className="display-tight max-w-[1100px] text-[clamp(4rem,10vw,9.5rem)] leading-[0.86] text-[#eeeae1]">
+          <h1 className="display-tight max-w-[1100px] text-[clamp(4rem,10vw,9.5rem)] leading-[0.86] text-ink">
             I write things down
             <br />
-            so I don't forget
+            so I don&apos;t forget
             <br />
             that I was here.
           </h1>
@@ -30,8 +34,8 @@ export default function Home() {
             <span className="mt-3 block h-px w-16 shrink-0 bg-[#4b4c51]" />
 
             <p className="max-w-[650px] text-base leading-7 text-[#777980] sm:text-lg sm:leading-8">
-              Thoughts, poems, photographs, things I'm learning,
-              and little pieces of life that I don't want time to take away.
+              Thoughts, poems, photographs, things I&apos;m learning,
+              and little pieces of life that I don&apos;t want time to take away.
             </p>
           </div>
         </div>
@@ -45,7 +49,7 @@ export default function Home() {
       {/* WRITINGS */}
       <section
         id="writings"
-        className="border-t border-[#25262a]"
+        className="border-t border-line"
       >
         <div className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-10">
 
@@ -65,7 +69,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="divide-y divide-[#25262a] border-y border-[#25262a]">
+          <div className="divide-y divide-line border-y border-line">
             {writings.map((post) => (
               <Link
                 key={post.slug}
@@ -111,7 +115,7 @@ export default function Home() {
       {/* POEMS */}
       <section
         id="poems"
-        className="border-t border-[#25262a]"
+        className="border-t border-line"
       >
         <div className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-10">
 
@@ -127,19 +131,19 @@ export default function Home() {
               </h2>
 
               <p className="mt-5 max-w-lg text-base leading-7 text-[#686970]">
-                Things I couldn't say normally.
+                Things I couldn&apos;t say normally.
               </p>
             </div>
 
           </div>
 
-          <div className="grid grid-cols-1 border border-[#25262a] md:grid-cols-2">
+          <div className="grid grid-cols-1 border border-line md:grid-cols-2">
 
             {poems.map((post) => (
               <Link
                 key={post.slug}
                 href={`/poems/${post.slug}`}
-                className="archive-card group min-h-[340px] border-b border-[#25262a] p-7 sm:p-10 md:min-h-[400px] md:border-r md:[&:nth-child(even)]:border-r-0"
+                className="archive-card group min-h-[340px] border-b border-line p-7 sm:p-10 md:min-h-[400px] md:border-r md:[&:nth-child(even)]:border-r-0"
               >
                 <div className="flex h-full flex-col justify-between">
 
@@ -187,7 +191,7 @@ export default function Home() {
       {/* LIFE */}
       <section
         id="life"
-        className="border-t border-[#25262a]"
+        className="border-t border-line"
       >
         <div className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-10">
 
@@ -203,13 +207,13 @@ export default function Home() {
               </h2>
 
               <p className="mt-5 max-w-lg text-base leading-7 text-[#686970]">
-                Things I'm learning while actually living it.
+                Things I&apos;m learning while actually living it.
               </p>
             </div>
 
           </div>
 
-          <div className="divide-y divide-[#25262a] border-y border-[#25262a]">
+          <div className="divide-y divide-line border-y border-line">
             {life.map((post) => (
               <Link
                 key={post.slug}
@@ -241,7 +245,164 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+
+            {life.length === 0 && (
+              <p className="py-12 text-[#66676d]">
+                Nothing here yet.
+              </p>
+            )}
           </div>
+
+        </div>
+      </section>
+
+      {/* DAYS */}
+      <section
+        id="days"
+        className="border-t border-line"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-10">
+
+          <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-[180px_1fr]">
+            <div className="label">
+              04 / Days
+            </div>
+
+            <div>
+              <h2 className="display text-5xl leading-none sm:text-6xl lg:text-7xl">
+                Days
+              </h2>
+
+              <p className="mt-5 max-w-lg text-base leading-7 text-[#686970]">
+                Ordinary days, written down so they don&apos;t disappear.
+              </p>
+            </div>
+          </div>
+
+          <div className="divide-y divide-line border-y border-line">
+            {days.map((day) => (
+              <Link
+                key={day.slug}
+                href={`/days/${day.slug}`}
+                className="archive-card group block py-10 sm:py-12"
+              >
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-[180px_1fr_auto] md:gap-8">
+                  <span className="label">
+                    {day.date}
+                  </span>
+
+                  <p className="max-w-2xl text-base leading-7 text-[#d0cdc5]">
+                    {dayPreview(day)}
+                  </p>
+
+                  <span className="card-arrow text-xl text-[#55565c]">
+                    →
+                  </span>
+                </div>
+              </Link>
+            ))}
+
+            {days.length === 0 && (
+              <p className="py-12 text-[#66676d]">
+                Nothing here yet.
+              </p>
+            )}
+          </div>
+
+          <div className="mt-12">
+            <Link
+              href="/days"
+              className="arrow-link text-xs uppercase tracking-[0.25em] text-[#66676d]"
+            >
+              All days →
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* PHOTOGRAPHS */}
+      <section
+        id="photographs"
+        className="border-t border-line"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-10">
+
+          <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-[180px_1fr]">
+            <div className="label">
+              05 / Photographs
+            </div>
+
+            <div>
+              <h2 className="display text-5xl leading-none sm:text-6xl lg:text-7xl">
+                Photographs
+              </h2>
+
+              <p className="mt-5 max-w-lg text-base leading-7 text-[#686970]">
+                Things I noticed and didn&apos;t want to walk past.
+              </p>
+            </div>
+          </div>
+
+          <PhotographArchive photographs={photographs} />
+
+          <div className="mt-12">
+            <Link
+              href="/photographs"
+              className="arrow-link text-xs uppercase tracking-[0.25em] text-[#66676d]"
+            >
+              All photographs →
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* NOW */}
+      <section
+        id="now"
+        className="border-t border-line"
+      >
+        <div className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-10">
+
+          <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-[180px_1fr]">
+            <div className="label">
+              06 / Now
+            </div>
+
+            <div>
+              <h2 className="display text-5xl leading-none sm:text-6xl lg:text-7xl">
+                Now
+              </h2>
+
+              <p className="mt-5 max-w-lg text-base leading-7 text-[#686970]">
+                A small glimpse of the present.
+              </p>
+            </div>
+          </div>
+
+          {currentNow ? (
+            <div className="md:pl-[212px]">
+              <p className="label mb-6">{currentNow.date}</p>
+
+              <p className="max-w-2xl text-lg leading-8 text-[#85868d] sm:text-xl sm:leading-9">
+                {nowPreview(currentNow)}
+              </p>
+
+              <div className="mt-12">
+                <Link
+                  href="/now"
+                  className="arrow-link text-xs uppercase tracking-[0.25em] text-[#66676d]"
+                >
+                  Now →
+                </Link>
+              </div>
+            </div>
+          ) : (
+            <p className="py-12 text-[#66676d]">
+              Nothing here yet.
+            </p>
+          )}
 
         </div>
       </section>
@@ -249,31 +410,31 @@ export default function Home() {
       {/* ABOUT */}
       <section
         id="about"
-        className="border-t border-[#25262a]"
+        className="border-t border-line"
       >
         <div className="mx-auto max-w-7xl px-6 py-32 sm:px-8 sm:py-44 lg:px-10">
 
           <div className="grid grid-cols-1 gap-12 md:grid-cols-[180px_1fr]">
 
             <div className="label">
-              04 / About
+              07 / About
             </div>
 
             <div className="max-w-4xl">
 
               <h2 className="display text-5xl leading-[0.95] sm:text-6xl lg:text-8xl">
-                I'm Manushresth.
+                I&apos;m Manushresth.
               </h2>
 
               <div className="mt-14 space-y-7 text-lg leading-8 text-[#85868d] sm:text-xl sm:leading-9">
 
                 <p>
-                  I'm trying to pay attention to life while it's happening.
+                  I&apos;m trying to pay attention to life while it&apos;s happening.
                 </p>
 
                 <p>
                   This is a small place for the things I write,
-                  the things I notice, and the moments I don't want
+                  the things I notice, and the moments I don&apos;t want
                   to disappear.
                 </p>
 
@@ -289,21 +450,6 @@ export default function Home() {
 
         </div>
       </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-[#25262a]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 py-8 text-xs text-[#4d4e54] sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
-
-          <span>
-            © 2026 Manushresth
-          </span>
-
-          <span>
-            Made slowly. Kept here.
-          </span>
-
-        </div>
-      </footer>
 
     </main>
   );
