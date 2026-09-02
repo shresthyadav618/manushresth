@@ -14,7 +14,6 @@ export default function Home() {
       {/* HERO */}
       <section className="mx-auto flex min-h-[calc(100svh-70px)] max-w-7xl flex-col justify-center px-6 py-24 sm:px-8 lg:px-10">
         <div className="max-w-[1200px]">
-
           <p className="label mb-10">
             A little place on the internet
           </p>
@@ -35,7 +34,6 @@ export default function Home() {
               and little pieces of life that I don't want time to take away.
             </p>
           </div>
-
         </div>
 
         <div className="mt-20 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-[#4d4e54] sm:mt-24">
@@ -52,7 +50,6 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 py-28 sm:px-8 sm:py-36 lg:px-10">
 
           <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-[180px_1fr]">
-
             <div className="label">
               01 / Writings
             </div>
@@ -66,7 +63,6 @@ export default function Home() {
                 Things that needed more than a passing thought.
               </p>
             </div>
-
           </div>
 
           <div className="divide-y divide-[#25262a] border-y border-[#25262a]">
@@ -143,7 +139,7 @@ export default function Home() {
               <Link
                 key={post.slug}
                 href={`/poems/${post.slug}`}
-                className="archive-card group min-h-[340px] border-b border-[#25262a] p-7 sm:p-10 md:min-h-[400px] md:border-b-0 md:border-r md:last:border-r-0"
+                className="archive-card group min-h-[340px] border-b border-[#25262a] p-7 sm:p-10 md:min-h-[400px] md:border-r md:[&:nth-child(even)]:border-r-0"
               >
                 <div className="flex h-full flex-col justify-between">
 
@@ -176,6 +172,12 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+
+            {poems.length === 0 && (
+              <p className="col-span-full py-12 text-[#66676d]">
+                Nothing here yet.
+              </p>
+            )}
 
           </div>
 
