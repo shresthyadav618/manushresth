@@ -13,6 +13,7 @@ export type Photograph = {
   image: string;
   alt: string;
   caption: string;
+  credit: string;
   content: string;
 };
 
@@ -36,6 +37,7 @@ function toPhotograph(file: {
     image,
     alt: asString(file.data.alt, caption || "Photograph"),
     caption,
+    credit: asString(file.data.credit),
     content: file.content,
   };
 }

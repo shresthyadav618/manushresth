@@ -1,56 +1,47 @@
-import Link from "next/link";
 import type { Metadata } from "next";
-import MdxContent from "@/components/mdx-content";
-import { getCurrentNow, getNowEntries } from "@/lib/now";
+import { now } from "@/content/now-page";
 
 export const metadata: Metadata = {
   title: "Now",
-  description:
-    "What I am currently reading, listening to, learning, building, and thinking about.",
+  description: "A small record of where I am lately.",
 };
 
-export default function NowPage() {
-  const current = getCurrentNow();
-  const previous = getNowEntries().slice(1);
+const fields = [
+  { label: "Reading", value: now.reading },
+  { label: "Listening", value: now.listening },
+  { label: "Building", value: now.building },
+  { label: "Learning", value: now.learning },
+  { label: "Thinking about", value: now.thinking },
+  { label: "Lately", value: now.lately },
+];
 
+export default function NowPage() {
   return (
     <section className="mx-auto max-w-5xl px-6 pb-32 pt-24 sm:px-8 sm:pt-36">
-      <div className="label mb-8">06 / Now</div>
+      <div className="label mb-8">Now</div>
 
       <h1 className="display-tight text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.9]">
         Now
       </h1>
 
-      {current ? (
-        <>
-          <p className="mt-8 text-xs text-[#66676d]">{current.date}</p>
+      <p className="mt-8 max-w-md text-base leading-7 text-[#686970]">
+        A small record of where I am lately.
+      </p>
 
-          <div className="article-text mt-16 max-w-2xl sm:mt-20">
-            <MdxContent source={current.content} />
+      <div className="mt-20 max-w-xl divide-y divide-line border-y border-line sm:mt-24">
+        {fields.map((field) => (
+          <div key={field.label} className="py-10">
+            <div className="label mb-4">{field.label}</div>
+            <p className="max-w-lg text-lg leading-8 text-[#d0cdc5]">
+              {field.value}
+            </p>
           </div>
-        </>
-      ) : (
-        <p className="mt-16 text-[#66676d]">Nothing here yet.</p>
-      )}
+        ))}
+      </div>
 
-      {previous.length > 0 && (
-        <div className="mt-24 max-w-2xl border-t border-line pt-8">
-          <div className="label mb-8">Earlier</div>
-
-          <div className="divide-y divide-line border-y border-line">
-            {previous.map((entry) => (
-              <Link
-                key={entry.slug}
-                href={`/now/${entry.slug}`}
-                className="archive-card group flex items-center justify-between py-6"
-              >
-                <span className="text-sm text-[#85868d]">{entry.date}</span>
-                <span className="card-arrow text-xl text-[#55565c]">→</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      <p className="mt-12 text-[10px] uppercase tracking-[0.3em] text-[#4f5056]">
+        Last updated · {now.updated}
+      </p>
     </section>
   );
 }

@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
-import { getRandomArchiveHref } from "@/lib/archive";
+import { getRandomPublishedHref } from "@/lib/published";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default function DoorPage() {
-  const href = getRandomArchiveHref();
+  const href = getRandomPublishedHref();
   redirect(href ?? "/");
 }

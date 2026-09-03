@@ -2,6 +2,9 @@ import type {
   AnchorHTMLAttributes,
   HTMLAttributes,
 } from "react";
+import EditorialImage from "@/components/editorial-image";
+import InternalLink from "@/components/internal-link";
+import PullQuote from "@/components/pull-quote";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 const components = {
@@ -14,6 +17,9 @@ const components = {
     <blockquote {...props} />
   ),
   p: (props: HTMLAttributes<HTMLParagraphElement>) => <p {...props} />,
+  EditorialImage,
+  InternalLink,
+  PullQuote,
 };
 
 export default async function MdxContent({ source }: { source: string }) {

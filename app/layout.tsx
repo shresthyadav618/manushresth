@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import MusicProvider from "@/components/music-provider";
+import MiniPlayer from "@/components/mini-player";
 import SiteFooter from "@/components/site-footer";
 import SiteHeader from "@/components/site-header";
 import "./globals.css";
@@ -20,9 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <MusicProvider>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+          <MiniPlayer />
+        </MusicProvider>
       </body>
     </html>
   );

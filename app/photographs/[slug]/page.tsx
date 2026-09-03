@@ -40,14 +40,7 @@ export default async function PhotographPage({ params }: Props) {
         ← Back to photographs
       </Link>
 
-      <header className="mt-24 max-w-4xl sm:mt-32">
-        <div className="label mb-8">Photograph</div>
-
-        <p className="text-xs text-[#66676d]">{photo.date}</p>
-      </header>
-
-      <div className="mt-16 sm:mt-20">
-        {/* Native dimensions: width 100%, height auto. Never crop or lock aspect ratio. */}
+      <div className="photograph-detail-frame">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={photo.image}
@@ -55,6 +48,21 @@ export default async function PhotographPage({ params }: Props) {
           className="photograph-detail"
         />
       </div>
+
+      <header className="photograph-detail-copy">
+        <div className="label mb-6">Photograph</div>
+        <h1 className="display photograph-detail-title">{photo.title}</h1>
+        {photo.date ? (
+          <p className="mt-5 text-[10px] uppercase tracking-[0.28em] text-[#55565c]">
+            {photo.date}
+          </p>
+        ) : null}
+        {photo.credit ? (
+          <p className="mt-3 text-[10px] uppercase tracking-[0.28em] text-[#55565c]">
+            {photo.credit}
+          </p>
+        ) : null}
+      </header>
 
       {photo.caption && (
         <p className="photograph-copy mt-10 text-lg leading-8 text-[#85868d] sm:text-xl">
