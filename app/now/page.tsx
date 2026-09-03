@@ -20,7 +20,7 @@ export default function NowPage() {
     <section className="mx-auto max-w-5xl px-6 pb-32 pt-24 sm:px-8 sm:pt-36">
       <div className="label mb-8">Now</div>
 
-      <h1 className="display-tight text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.9]">
+      <h1 className="display text-5xl leading-none sm:text-6xl lg:text-7xl">
         Now
       </h1>
 

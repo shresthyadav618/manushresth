@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   },
   description:
     "Thoughts, poems, photographs, things I'm learning, and little pieces of life.",
+  referrer: "origin-when-cross-origin",
 };
 
 export default function RootLayout({

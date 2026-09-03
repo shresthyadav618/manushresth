@@ -28,16 +28,32 @@ export default function Home() {
 
   return (
     <main>
-      <section className="home-open">
-        <p className="site-mark home-open-name">Manushresth</p>
+      <section className="mx-auto flex min-h-[calc(100svh-70px)] max-w-7xl flex-col justify-center px-6 py-24 sm:px-8 lg:px-10">
+        <div className="max-w-[1200px]">
+          <p className="label mb-10">A little place on the internet</p>
 
-        <h1 className="display home-open-title">
-          A small place for things I don&apos;t want to lose.
-        </h1>
+          <h1 className="display-tight max-w-[1100px] text-[clamp(4rem,10vw,9.5rem)] leading-[0.86] text-ink">
+            I write things down
+            <br />
+            so I don&apos;t forget
+            <br />
+            that I was here.
+          </h1>
 
-        <p className="home-open-aside">
-          I write things down so I don&apos;t forget that I was here.
-        </p>
+          <div className="mt-14 flex items-start gap-7 sm:mt-16">
+            <span className="mt-3 block h-px w-16 shrink-0 bg-[#4b4c51]" />
+
+            <p className="max-w-[650px] text-base leading-7 text-[#777980] sm:text-lg sm:leading-8">
+              Thoughts, poems, photographs, things I&apos;m learning, and little
+              pieces of life that I don&apos;t want time to take away.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-20 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-[#4d4e54] sm:mt-24">
+          <span>Scroll to explore</span>
+          <span className="animate-bounce">↓</span>
+        </div>
       </section>
 
       <section className="home-band">

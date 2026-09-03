@@ -69,6 +69,7 @@ export default function MusicProvider({ children }: { children: ReactNode }) {
   const creatingYouTube = useRef(false);
   const userPaused = useRef(false);
   const timeRef = useRef(0);
+  const stoppingRef = useRef(false);
   const [index, setIndex] = useState(-1);
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
@@ -104,17 +105,12 @@ export default function MusicProvider({ children }: { children: ReactNode }) {
 
   const stopPlayback = useCallback(() => {
     pendingPlay.current = false;
+    stoppingRef.current = true;
     pauseLocal();
     pauseYouTube();
 
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
-    }
-
-    try {
-      youtubeRef.current?.seekTo(0, true);
-    } catch {
-      // Ignore.
     }
 
     setPlaying(false);
@@ -129,6 +125,7 @@ export default function MusicProvider({ children }: { children: ReactNode }) {
 
     pendingPlay.current = true;
     userPaused.current = false;
+    stoppingRef.current = false;
     setError(null);
     setTime(0);
     setDuration(0);
@@ -192,6 +189,7 @@ export default function MusicProvider({ children }: { children: ReactNode }) {
 
     pendingPlay.current = true;
     userPaused.current = false;
+    stoppingRef.current = false;
     setError(null);
 
     if (isLocalSong(song)) {
@@ -406,6 +404,7 @@ export default function MusicProvider({ children }: { children: ReactNode }) {
             rel: 0,
             playsinline: 1,
             origin: window.location.origin,
+            widget_referrer: window.location.origin,
             iv_load_policy: 3,
           },
           events: {
@@ -455,6 +454,11 @@ export default function MusicProvider({ children }: { children: ReactNode }) {
               }
             },
             onError: () => {
+              if (stoppingRef.current) {
+                stoppingRef.current = false;
+                return;
+              }
+
               pendingPlay.current = false;
               setPlaying(false);
               setError(failMessage());

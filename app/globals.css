@@ -364,8 +364,8 @@ button {
 }
 
 .section-title {
-  font-size: clamp(2.75rem, 6vw, 4.5rem);
-  line-height: 0.95;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1;
 }
 
 .section-lede {
@@ -661,8 +661,8 @@ button {
 
 .article-title {
   margin-top: 1.5rem;
-  font-size: clamp(2.5rem, 7vw, 5.25rem);
-  line-height: 0.95;
+  font-size: clamp(3.5rem, 8vw, 7.5rem);
+  line-height: 0.9;
 }
 
 .article-subtitle {
@@ -1264,8 +1264,9 @@ html.quiet-reading .article-text {
   position: fixed;
   width: 320px;
   height: 180px;
-  left: -9999px;
+  right: 0;
   bottom: 0;
+  z-index: -1;
   overflow: hidden;
   pointer-events: none;
   opacity: 0;
